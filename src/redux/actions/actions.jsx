@@ -20,3 +20,18 @@ export const getCurrencyType = (data) => {
         payload : data
     }
 }
+
+export const getCoinId = (data) => {
+    return{
+        type: action_type.getCoinId,
+        payload : data
+    }
+}
+
+export const getCoinDetail = (data) => {
+    return{
+        type: action_type.getCoinDetails,
+        payload: data
+    }
+}
+

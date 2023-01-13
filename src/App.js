@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import News from './pages/News';
 import Error from './pages/Error';
 import { QueryClient , QueryClientProvider } from 'react-query';
+import CoinDetails from './pages/CoinDetails';
 
 const App = () => {
 
@@ -23,6 +24,7 @@ const App = () => {
             <Route path='cryptocurrencies' element={<Cryptocurrency />}/>
             <Route path='exchanges' element={<Exchanges />}/>
             <Route path='news' element={<News />}/>
+            <Route path='/coin/:id' element={<CoinDetails />}/>
             <Route path='*' element = {<Error />}/>
           </Routes>
           {/* <Footer /> */}

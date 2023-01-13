@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useQuery } from "react-query";
-import { fetchCoins, fetchExchanges } from "../redux/actions/actions";
+import { fetchCoins, fetchExchanges, getCoinDetail } from "../redux/actions/actions";
 import { useDispatch, useSelector } from "react-redux";
 
 
@@ -25,8 +25,6 @@ export const GetCoinsData = () => {
         cacheTime : Infinity
     });
 
-    console.log('currency is' , currencyType);
-
     return (
         {data, isLoading, status , error}
     );
@@ -34,6 +32,7 @@ export const GetCoinsData = () => {
 
 
 export const GetExchangesData = () => {
+
 
     const dispatch = useDispatch();
 
@@ -55,4 +54,27 @@ export const GetExchangesData = () => {
 
     return {data, isLoading, status, error}
     
+}
+
+
+export const SingleCoinDetails = () => {
+
+    const currencyType = useSelector((state) => state.currencyTypeReducer.selected_currency);
+    const coinId = useSelector((state) => state.currencyTypeReducer.selected_coin_Id);
+
+
+    const dispatch = useDispatch();
+
+    const coinDetailFetcher = async (url) => {
+        const {data} = await axios.get(url);
+        dispatch(getCoinDetail(data));
+        return data;
+    }
+
+    const {data, isLoading, status, error} = useQuery(['coinDetails', currencyType] , () => coinDetailFetcher(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currencyType}&ids=${coinId}`))
+
+    // console.log('id is ' , id)
+
+    return {data, isLoading, status, error}
+
 }

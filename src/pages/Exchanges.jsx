@@ -47,7 +47,7 @@ const Exchanges = () => {
           </HStack>
 
           <HStack w={'25%'} justifyContent={'center'}>
-            <Text fontSize={'sm'}>Trust_Score_Rank</Text>
+            <Text fontSize={'sm'}>Rank (T.S)</Text>
           </HStack>
 
           <HStack w={'25%'} justifyContent={'center'}>

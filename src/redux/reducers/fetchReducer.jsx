@@ -2,7 +2,8 @@ import action_type from "../constants/constant";
 
 const initialState = {
     coinsData : [],
-    exchangesData : []
+    exchangesData : [],
+    coinDetail : []
 }
 
 export const fetchReducer = (state = initialState , action) => {
@@ -16,6 +17,11 @@ export const fetchReducer = (state = initialState , action) => {
             return{
                 ...state,
                 exchangesData : action.payload
+            }
+        case action_type.getCoinDetails:
+            return{
+                ...state,
+                coinDetail : action.payload
             }
 
         default:

@@ -2,8 +2,13 @@ import { Button } from '@chakra-ui/react'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import '../css/CoinCard.css'
+import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { getCoinId } from '../redux/actions/actions'
 
 const CoinCard = ({id,name , image , current_price, market_cap , ath , total_supply}) => {
+
+  const dispatch = useDispatch();
 
   const currencyType = useSelector((state) => state.currencyTypeReducer.selected_currency);
 
@@ -14,6 +19,7 @@ const CoinCard = ({id,name , image , current_price, market_cap , ath , total_sup
 
   return (
     <>
+      <Link to = {`/coin/${id}`} onClick={() => dispatch(getCoinId(id))}>
         <div className="crypto-card">
           <div className="crypto-header">
             <p>{name}</p>
@@ -28,10 +34,11 @@ const CoinCard = ({id,name , image , current_price, market_cap , ath , total_sup
             <p>All time high : {symbol}{ath}</p>
             <p>Total Supply : {(total_supply === null) ? 'Not Known' : total_supply}</p>
 
-            <Button m={'auto'} size={'sm'} border={'none'}>Check Coin</Button>
+            <Button m={'auto'} size={'sm'} border={'none'}>More Info</Button>
 
           </div>
         </div>
+      </Link>
     </>
   )
 }
