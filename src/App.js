@@ -1,42 +1,35 @@
 import React from 'react';
-import {
-  ChakraProvider,
-  Box,
-  Text,
-  Link,
-  VStack,
-  Code,
-  Grid,
-  theme,
-} from '@chakra-ui/react';
-import { ColorModeSwitcher } from './ColorModeSwitcher';
-import { Logo } from './Logo';
+import { BrowserRouter , Routes , Route } from 'react-router-dom';
+import Footer from './footer/Footer';
+import Header from './navbar/Header';
+import Cryptocurrency from './pages/Cryptocurrency';
+import Exchanges from './pages/Exchanges';
+import Home from './pages/Home';
+import News from './pages/News';
+import Error from './pages/Error';
+import { QueryClient , QueryClientProvider } from 'react-query';
 
-function App() {
+const App = () => {
+
+  const client = new QueryClient();
+
   return (
-    <ChakraProvider theme={theme}>
-      <Box textAlign="center" fontSize="xl">
-        <Grid minH="100vh" p={3}>
-          <ColorModeSwitcher justifySelf="flex-end" />
-          <VStack spacing={8}>
-            <Logo h="40vmin" pointerEvents="none" />
-            <Text>
-              Edit <Code fontSize="xl">src/App.js</Code> and save to reload.
-            </Text>
-            <Link
-              color="teal.500"
-              href="https://chakra-ui.com"
-              fontSize="2xl"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learn Chakra
-            </Link>
-          </VStack>
-        </Grid>
-      </Box>
-    </ChakraProvider>
-  );
+    <>
+      <QueryClientProvider client={client}>
+        <BrowserRouter>
+          <Header />
+          <Routes>
+            <Route path='/' element={<Home />}/>
+            <Route path='cryptocurrencies' element={<Cryptocurrency />}/>
+            <Route path='exchanges' element={<Exchanges />}/>
+            <Route path='news' element={<News />}/>
+            <Route path='*' element = {<Error />}/>
+          </Routes>
+          {/* <Footer /> */}
+        </BrowserRouter>
+      </QueryClientProvider>
+    </>
+  )
 }
 
-export default App;
+export default App

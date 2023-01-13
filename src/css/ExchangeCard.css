@@ -1,0 +1,8 @@
+.exchange-card{
+    transition: all .2s ease-in-out;
+}
+
+.exchange-card:hover{
+    cursor: pointer;
+    transform: scale(1.04);
+}

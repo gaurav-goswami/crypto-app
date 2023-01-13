@@ -1,0 +1,10 @@
+.crypto-card-container{
+    width: 90%;
+    margin: 1rem auto;
+    padding: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    text-align: center;
+    gap: 1rem;
+}
