@@ -7,7 +7,7 @@ import Pagination from '../Components/Pagination';
 
 const Exchanges = () => {
   
-  let {data, isLoading, status, error} = GetExchangesData();
+  let {data, isLoading, status} = GetExchangesData();
   
   const exchangesData = useSelector((state) => state.fetchReducer.exchangesData);
 
@@ -16,7 +16,6 @@ const Exchanges = () => {
   // console.log(data);
   // console.log('status is (exchanges) ' , status);
   // console.log('isLoading (exchanges) ' , isLoading)
-  // console.log('error in ex ', error);
 
   // pagination
   const [currentPage , setCurrentPage] = useState(1);
@@ -24,10 +23,6 @@ const Exchanges = () => {
   const lastPostIndex = currentPage * postsPerPage;
   const firstPostIndex = lastPostIndex - postsPerPage;
 
-  
-  
-  console.log(exchangesData)
-  
   const newExchangeData = exchangesData.slice(firstPostIndex, lastPostIndex);
   return (
     <>

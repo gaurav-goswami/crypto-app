@@ -2,37 +2,42 @@ import React, { useState } from "react";
 import CoinCard from "../Components/CoinCard";
 import '../css/Cryptocurrency.css';
 import { GetCoinsData } from "../API/APIfetcher";
-import { useSelector } from "react-redux";
-import { Spinner } from "@chakra-ui/react";
+import { useDispatch, useSelector } from "react-redux";
+import { Button, HStack, Spinner } from "@chakra-ui/react";
 import Pagination from "../Components/Pagination";
 import CurrencyBtns from "../Components/CurrencyBtns";
+import { getPageNumber } from "../redux/actions/actions";
 
 
 const Cryptocurrency = () => {
 
+  const dispatch = useDispatch();
+
   // pagination
-  const [currentPage , setCurrentPage] = useState(1);
-  let postsPerPage = 20;
-  const lastPostIndex = currentPage * postsPerPage;
-  const firstPostIndex = lastPostIndex - postsPerPage;
+  const [page, setPage] = useState(1);
+  // const [currentPage , setCurrentPage] = useState(1);
+  // let postsPerPage = 20;
+  // const lastPostIndex = currentPage * postsPerPage;
+  // const firstPostIndex = lastPostIndex - postsPerPage;
+
+  const changePage = (page) => {
+    if(page < 1){
+      setPage(1)
+    }else{
+      setPage(page);
+    }
+    dispatch(getPageNumber(page));
+  }
 
   // currency type 
 
   
   const { data , isLoading, status, error } = GetCoinsData();
 
-
-  // check for caching
-
-  // console.log('status is ' , status);
-  // console.log('isLoading ' , isLoading);
-  // console.log('data is ' , data);
-  // console.log('error' , error);
-
+  console.log(status);
 
   const cryptoCoins = useSelector((state) => state.fetchReducer.coinsData);
 
-  const newCryptoCoins = cryptoCoins.slice(firstPostIndex, lastPostIndex);
  
   return (
     <>
@@ -41,12 +46,16 @@ const Cryptocurrency = () => {
       <div className="crypto-card-container">
       {
         (isLoading) ? <Spinner/> :
-        newCryptoCoins.map((currentCoin) => {
+        cryptoCoins.map((currentCoin) => {
           return <CoinCard key = {currentCoin.id} {...currentCoin}/>
         })
       }   
       </div>
-      <Pagination totalPages={cryptoCoins.length} postsPerpage={postsPerPage} setCurrentPage={setCurrentPage} currentPage={currentPage}/>
+
+      <HStack w={'60%'} m={'1rem auto'} overflowX={'auto'} h={'10vh'} justifyContent={'center'}>
+        <Button onClick={() => changePage(page-1)} >Prev</Button>
+        <Button onClick={() => changePage(page+1)} >Next</Button>
+      </HStack>
     </>
   )
 }

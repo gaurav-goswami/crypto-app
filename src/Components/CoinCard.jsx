@@ -29,9 +29,9 @@ const CoinCard = ({id,name , image , current_price, market_cap , ath , total_sup
           </div>
 
           <div className="crypto-details" bg={''}>
-            <p>Current Price : {symbol}{current_price}</p>
-            <p>Market Cap : {symbol}{market_cap}</p>
-            <p>All time high : {symbol}{ath}</p>
+            <p>Current Price : {symbol}{ (current_price) ?  current_price : 'Null'}</p>
+            <p>Market Cap : {symbol}{(market_cap) ? market_cap : 'Null'}</p>
+            <p>All time high : {symbol}{(ath) ? ath : 'Null'}</p>
             <p>Total Supply : {(total_supply === null) ? 'Not Known' : total_supply}</p>
 
             <Button m={'auto'} size={'sm'} border={'none'}>More Info</Button>

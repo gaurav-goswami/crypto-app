@@ -1,11 +1,12 @@
 @media screen and (max-width: 600px){
     .main-stack{
         flex-direction: column;
+        align-items: center !important;
         width: 100vw;
         gap: 1rem;
     }
     .coin-details-stack{
-        width: 100% !important ;
+        width: 95% !important ;
         padding: 1rem !important;
         align-items: flex-start !important;
         border: none !important;

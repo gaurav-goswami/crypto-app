@@ -21,6 +21,13 @@ export const getCurrencyType = (data) => {
     }
 }
 
+export const getPageNumber = (data) => {
+    return{
+        type: action_type.getPageNumber,
+        payload : data
+    }
+}
+
 export const getCoinId = (data) => {
     return{
         type: action_type.getCoinId,

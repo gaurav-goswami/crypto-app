@@ -3,11 +3,12 @@ import { useQuery } from "react-query";
 import { fetchCoins, fetchExchanges, getCoinDetail } from "../redux/actions/actions";
 import { useDispatch, useSelector } from "react-redux";
 
-
 export const GetCoinsData = () => {
 
     // currency type
     const currencyType = useSelector((state) => state.currencyTypeReducer.selected_currency);
+
+    const page = useSelector((state) => state.currencyTypeReducer.current_page);
 
     const dispatch = useDispatch();
 
@@ -21,7 +22,7 @@ export const GetCoinsData = () => {
         }
     }
 
-    const {data , isLoading , status , error} = useQuery(['cryptoCoinsData' , currencyType] , () => coinFetcher(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currencyType}`), {
+    const {data , isLoading , status , error} = useQuery(['cryptoCoinsData' , currencyType, page] , () => coinFetcher(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currencyType}&per_page=20&page=${page}`), {
         cacheTime : Infinity
     });
 
@@ -50,9 +51,11 @@ export const GetExchangesData = () => {
     }
 
 
-    const {data, isLoading , status , error} = useQuery('cryptoExchanges' , () => exchangesFetcher(`https://api.coingecko.com/api/v3/exchanges`))
+    const {data, isLoading , status} = useQuery('cryptoExchanges' , () => exchangesFetcher(`https://api.coingecko.com/api/v3/exchanges`),{
+        cacheTime : Infinity
+    })
 
-    return {data, isLoading, status, error}
+    return {data, isLoading, status }
     
 }
 
@@ -71,7 +74,9 @@ export const SingleCoinDetails = () => {
         return data;
     }
 
-    const {data, isLoading, status, error} = useQuery(['coinDetails', currencyType] , () => coinDetailFetcher(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currencyType}&ids=${coinId}`))
+    const {data, isLoading, status, error} = useQuery(['coinDetails', currencyType] , () => coinDetailFetcher(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currencyType}&ids=${coinId}`),{
+        cacheTime : Infinity
+    })
 
     // console.log('id is ' , id)
 
