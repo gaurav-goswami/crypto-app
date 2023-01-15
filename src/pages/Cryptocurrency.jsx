@@ -3,8 +3,7 @@ import CoinCard from "../Components/CoinCard";
 import '../css/Cryptocurrency.css';
 import { GetCoinsData } from "../API/APIfetcher";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, HStack, Spinner } from "@chakra-ui/react";
-import Pagination from "../Components/Pagination";
+import { Button, Flex, HStack, Spinner } from "@chakra-ui/react";
 import CurrencyBtns from "../Components/CurrencyBtns";
 import { getPageNumber } from "../redux/actions/actions";
 
@@ -15,13 +14,8 @@ const Cryptocurrency = () => {
 
   // pagination
   const [page, setPage] = useState(1);
-  // const [currentPage , setCurrentPage] = useState(1);
-  // let postsPerPage = 20;
-  // const lastPostIndex = currentPage * postsPerPage;
-  // const firstPostIndex = lastPostIndex - postsPerPage;
-
   const changePage = (page) => {
-    if(page < 1){
+    if(page <= 1){
       setPage(1)
     }else{
       setPage(page);
@@ -34,8 +28,6 @@ const Cryptocurrency = () => {
   
   const { data , isLoading, status, error } = GetCoinsData();
 
-  console.log(status);
-
   const cryptoCoins = useSelector((state) => state.fetchReducer.coinsData);
 
  
@@ -45,7 +37,10 @@ const Cryptocurrency = () => {
 
       <div className="crypto-card-container">
       {
-        (isLoading) ? <Spinner/> :
+        (isLoading) ? 
+        <Flex w={'full'} h={'100vh'} justifyContent={'center'} alignItems={'center'}>
+          <Spinner/>
+        </Flex> :
         cryptoCoins.map((currentCoin) => {
           return <CoinCard key = {currentCoin.id} {...currentCoin}/>
         })

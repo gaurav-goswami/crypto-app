@@ -42,3 +42,9 @@ export const getCoinDetail = (data) => {
     }
 }
 
+export const getNewsData = (data) => {
+    return{
+        type : action_type.getNewsData,
+        payload : data
+    }
+}

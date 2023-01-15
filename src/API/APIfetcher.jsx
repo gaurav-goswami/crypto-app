@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useQuery } from "react-query";
-import { fetchCoins, fetchExchanges, getCoinDetail } from "../redux/actions/actions";
+import { fetchCoins, fetchExchanges, getCoinDetail, getNewsData } from "../redux/actions/actions";
 import { useDispatch, useSelector } from "react-redux";
 
 export const GetCoinsData = () => {
@@ -82,4 +82,20 @@ export const SingleCoinDetails = () => {
 
     return {data, isLoading, status, error}
 
+}
+
+export const GetNewsData = () => {
+
+    const dispatch = useDispatch();
+
+    const newsDataFetcher = async (url) => {
+        const {data} = await axios.get(url);
+        dispatch(getNewsData(data.articles));
+        return data;
+    }
+
+    const {data, status, isLoading} = useQuery('newsData' , () => newsDataFetcher(`https://newsapi.org/v2/everything?q=cryptocurrency&sortBy=publishedAt&apiKey=${process.env.REACT_APP_NEWS_API_KEY}`))
+
+
+    return {data, status, isLoading}
 }

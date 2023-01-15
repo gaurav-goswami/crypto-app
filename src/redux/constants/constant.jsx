@@ -4,7 +4,8 @@ const action_type = {
     getCurrencyType : 'GET_CURRENCY_TYPE',
     getPageNumber : 'GET_PAGE_NUMBER',
     getCoinId : 'GET_COIN_ID',
-    getCoinDetails : 'GET_COIN_DETAILS'
+    getCoinDetails : 'GET_COIN_DETAILS',
+    getNewsData : 'GET_NEWS_DATA'
 }
 
 

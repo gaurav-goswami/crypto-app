@@ -29,7 +29,7 @@ const Exchanges = () => {
 
     {/* header content */}
 
-      <Flex w={'95%'} h={'100vh'} m={'3rem auto'} p={'2rem 0'} flexDirection={'column'}>
+      <Flex w={'95%'} m={'3rem auto'} p={'2rem 0'} flexDirection={'column'}>
         {/* exchanges heading */}
         <HStack marginBottom={'2'} h={'8%'} p={'1rem'} backgroundColor={'rgba(30,30,30,0.5)'} borderRadius={'md'}>
 

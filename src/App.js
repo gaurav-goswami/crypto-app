@@ -27,7 +27,7 @@ const App = () => {
             <Route path='/coin/:id' element={<CoinDetails />}/>
             <Route path='*' element = {<Error />}/>
           </Routes>
-          {/* <Footer /> */}
+        <Footer />
         </BrowserRouter>
       </QueryClientProvider>
     </>
