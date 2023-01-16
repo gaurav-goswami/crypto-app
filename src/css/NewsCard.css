@@ -1,16 +1,14 @@
 @media screen and (max-width:530px) {
     .news-box{
-        flex-direction: column;
+        flex-direction: column !important;
     }
 
     .news-box-1{
-        width: 100%;
-        order: 2;
+        width: 100% !important;
+        order: 2 !important;
     }
-
 
     .news-box-2{
-        width: 100%;
+        width: 100% !important;
     }
-
 }

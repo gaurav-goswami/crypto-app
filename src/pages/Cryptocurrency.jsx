@@ -29,7 +29,6 @@ const Cryptocurrency = () => {
   const { data , isLoading, status, error } = GetCoinsData();
 
   const cryptoCoins = useSelector((state) => state.fetchReducer.coinsData);
-
  
   return (
     <>

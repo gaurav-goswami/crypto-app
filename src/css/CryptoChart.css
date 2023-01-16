@@ -1,0 +1,15 @@
+@media only screen and (max-width: 600px) {
+    .chart {
+      width: 100vw !important;
+      height: 38vh;
+      padding: 1rem;
+      font-size: 12px !important;
+      margin-top: 1rem;
+    }
+
+    .line-chart{
+        margin: 2rem -4rem 1rem 0rem;
+        width: 100% !important;
+        height: 100% !important;
+    }
+}

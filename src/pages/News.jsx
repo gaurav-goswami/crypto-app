@@ -1,44 +1,40 @@
-import { Flex, Spinner } from '@chakra-ui/react';
-import React, {useState} from 'react'
-import { useSelector } from 'react-redux'
-import { GetNewsData } from '../API/APIfetcher'
-import NewsCard from '../Components/NewsCard';
-import Pagination from '../Components/Pagination';
+import React from 'react'
+import { Flex, Spinner, Text } from '@chakra-ui/react'
+import { GetNewsData } from '../API/APIfetcher';
+import { useSelector } from 'react-redux';
+import NewsCard from '../Components/NewsCard'
 
 const News = () => {
 
-  const{data, isLoading, status} = GetNewsData();
+    let {data, isLoading, status, error} = GetNewsData();
+    let newsData = useSelector((state) => state.fetchReducer.newsData.articles);
 
-  const newsData = useSelector((state) => state.fetchReducer.newsData);
+    if(isLoading){
+        newsData = [];
+    }
 
-  // pagination
-  const [currentPage , setCurrentPage] = useState(1);
-  let postsPerPage = 20;
-  const lastPostIndex = currentPage * postsPerPage;
-  const firstPostIndex = lastPostIndex - postsPerPage;
-
-  const newData = newsData.slice(firstPostIndex, lastPostIndex);
-
+    const isError = useSelector((state) => state.fetchReducer.isError);
 
   return (
     <>
-      <Flex w={'90%'} m={'auto'} gap={'1rem'} flexWrap={'wrap'} justifyContent={'center'} alignItems={'center'} p={'1rem'}>
-          
-          {
-            (isLoading) ? 
-            <Flex w={'full'} h={'100vh'} justifyContent={'center'} alignItems={'center'}>
-              <Spinner/>
-            </Flex> :
+        <Flex w={'90%'} m={'auto'} gap={'1rem'} flexWrap={'wrap'} justifyContent={'center'} alignItems={'center'} p={'1rem'}>
+            
+            {
+                (isLoading) ? 
+                <Flex w={'100%'} h={'100vh'} justifyContent={'center'} alignItems={'center'}>
+                    <Spinner color={'red'}/>
+                </Flex>
+                : (isError) ? 
+                <Flex w={'100%'} h={'100vh'} justifyContent={'center'} alignItems={'center'}>
+                    <Text color = {'red'}>Error while fetching Data</Text>
+                </Flex>
+                 : 
+                newsData.map((elem , index) => {
+                    return <NewsCard key = {index} {...elem}/>
+                })
+            }
 
-            newData.map((newsData, index) => {
-              return <NewsCard key = {index} {...newsData}/>
-            })
-
-          }
-
-          <Pagination totalPages={newsData.length} postsPerpage={postsPerPage} setCurrentPage={setCurrentPage} currentPage={currentPage}/>
-      </Flex>
-
+        </Flex>
     </>
   )
 }

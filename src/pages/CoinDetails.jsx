@@ -1,11 +1,15 @@
 import { Flex, VStack, HStack, Text, Box, Image, Button, Spinner } from '@chakra-ui/react';
-import React from 'react'
-import CurrencyBtns from '../Components/CurrencyBtns'
-import '../css/CoinDetails.css'
+import React from 'react';
+import CurrencyBtns from '../Components/CurrencyBtns';
+import '../css/CoinDetails.css';
+import { Link, useParams } from 'react-router-dom';
 import { SingleCoinDetails } from '../API/APIfetcher';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCoinId } from '../redux/actions/actions';
 
 const CoinDetails = () => {
+    
+    const currentCurrencyId = useSelector((state) => state.currencyTypeReducer.selected_coin_Id);
 
     const {data, isLoading, status, error} = SingleCoinDetails();
 
@@ -19,16 +23,10 @@ const CoinDetails = () => {
     return (
         <>
         <Flex w={'100%'} m={'auto'} p={'4'} marginTop={'4rem'} className='main-stack'>
-
-        
             {
                 (isLoading) ? 
-
                 <Flex justifyContent={'center'} alignItems={'center'} w={'100%'} h={'100vh'}> <Spinner/>  </Flex> :
-
             <>
-
-                
                 <VStack className='coin-details-stack' w={'50%'} p={'2rem 4rem'} alignItems={'flex-start'} gap={'2'}>
 
                     <HStack justifyContent={'flex-start'} w={'100%'}>
@@ -74,16 +72,16 @@ const CoinDetails = () => {
 
                 </VStack>
             </>
-
             }
-
-            
         </Flex>
 
         <CurrencyBtns />
 
+
         <Flex justifyContent={'center'} m={'2rem'}>
-            <Button>See Chart</Button>
+            <Link to = {`/coin/${currentCurrencyId}/${currentCurrencyId}-chart`}>
+                <Button>See Chart</Button>
+            </Link>
         </Flex>
         
     </>

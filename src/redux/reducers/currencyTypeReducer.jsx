@@ -3,7 +3,7 @@ import action_type from "../constants/constant";
 const initialState = {
     selected_currency : 'usd',
     selected_coin_Id : '',
-    current_page : 1
+    current_page : 1,
 }
 
 export const currencyTypeReducer = (state = initialState , action) => {
@@ -25,6 +25,7 @@ export const currencyTypeReducer = (state = initialState , action) => {
                 ...state,
                 current_page : action.payload
             }
+        
         default:
             return state;
     }

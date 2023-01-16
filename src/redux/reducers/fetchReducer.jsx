@@ -4,7 +4,8 @@ const initialState = {
     coinsData : [],
     exchangesData : [],
     coinDetail : [],
-    newsData : []
+    newsData : [],
+    isError : false
 }
 
 export const fetchReducer = (state = initialState , action) => {
@@ -28,6 +29,12 @@ export const fetchReducer = (state = initialState , action) => {
             return{
                 ...state,
                 newsData : action.payload
+            }
+
+        case action_type.getError:
+            return{
+                ...state,
+                isError : true
             }
 
         default:

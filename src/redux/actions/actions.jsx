@@ -42,9 +42,32 @@ export const getCoinDetail = (data) => {
     }
 }
 
+export const getError = (data) => {
+    return{
+        type: action_type.getError,
+        payload : data
+    }
+}
+
 export const getNewsData = (data) => {
     return{
         type : action_type.getNewsData,
         payload : data
+    }
+}
+
+
+export const getDays = (data) => {
+    return{
+        type: action_type.getDays,
+        payload: data
+    }
+
+}
+
+export const getChartPrice = (data) => {
+    return{
+        type: action_type.getSingleChartPrice,
+        payload: data
     }
 }

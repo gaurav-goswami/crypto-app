@@ -9,7 +9,7 @@ const Footer = () => {
     <>
         <Flex bg={'rgba(100,100,100,0.10)'} w={'100%'}>
             
-          <HStack w={'100%'} h={'100%'} justifyContent={'center'} flexDirection={'column'}>
+          <HStack w={'100%'}  justifyContent={'center'} flexDirection={'column'}>
 
             <HStack p={'.2rem'}>
               <Text>EN-CRYPTO</Text>
@@ -31,7 +31,7 @@ const Footer = () => {
             </HStack>
 
             <HStack p={'.3rem'}>
-              <Text>Powered By <a href="https://www.coingecko.com/en/api" target={'_blank'}>CoinGecko API</a></Text>
+              <Text>Powered By <a className='api-link' href="https://www.coingecko.com/en/api" target={'_blank'}>CoinGecko API</a></Text>
             </HStack>
 
           </HStack>

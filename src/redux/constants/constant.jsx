@@ -5,7 +5,10 @@ const action_type = {
     getPageNumber : 'GET_PAGE_NUMBER',
     getCoinId : 'GET_COIN_ID',
     getCoinDetails : 'GET_COIN_DETAILS',
-    getNewsData : 'GET_NEWS_DATA'
+    getError : 'GET_ERROR',
+    getNewsData : 'GET_NEWS_DATA',
+    getDays : 'GET_DAYS',
+    getSingleChartPrice : 'GET_CHART_PRICE'
 }
 
 

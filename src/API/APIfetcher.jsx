@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useQuery } from "react-query";
-import { fetchCoins, fetchExchanges, getCoinDetail, getNewsData } from "../redux/actions/actions";
+import { fetchCoins, fetchExchanges, getCoinDetail, getNewsData, getError, getChartPrice } from "../redux/actions/actions";
 import { useDispatch, useSelector } from "react-redux";
 
 export const GetCoinsData = () => {
@@ -49,9 +49,8 @@ export const GetExchangesData = () => {
         }
 
     }
-
-
-    const {data, isLoading , status} = useQuery('cryptoExchanges' , () => exchangesFetcher(`https://api.coingecko.com/api/v3/exchanges`),{
+    
+    const {data, isLoading , status, error} = useQuery('cryptoExchanges' , () => exchangesFetcher(`https://api.coingecko.com/api/v3/exchanges`),{
         cacheTime : Infinity
     })
 
@@ -84,18 +83,52 @@ export const SingleCoinDetails = () => {
 
 }
 
+
 export const GetNewsData = () => {
 
     const dispatch = useDispatch();
 
-    const newsDataFetcher = async (url) => {
-        const {data} = await axios.get(url);
-        dispatch(getNewsData(data.articles));
-        return data;
+    const newsFetcher = async (url) => {
+        try {
+            const {data} = await axios.get(url);
+            dispatch(getNewsData(data));
+            return data;
+        } catch (error) {
+            dispatch(getError(true))
+        }
     }
 
-    const {data, status, isLoading} = useQuery('newsData' , () => newsDataFetcher(`https://newsapi.org/v2/everything?q=cryptocurrency&sortBy=publishedAt&apiKey=${process.env.REACT_APP_NEWS_API_KEY}`))
+    const {data, isLoading, status} = useQuery('newsData' , () => newsFetcher(`https://newsapi.org/v2/everything?q=cryptocurrency&from=2023-01-14&to=2023-01-14&sortBy=popularity&apiKey=${process.env.REACT_APP_NEWS_API_KEY}`),{
+        cacheTime: Infinity
+    })
+
+    return {data, isLoading, status}
+
+}
+
+export const GetChartData = () => {
+
+    const dispatch = useDispatch();
+
+    const currencyType = useSelector((state) => state.currencyTypeReducer.selected_currency);
+    const currentCurrencyId = useSelector((state) => state.currencyTypeReducer.selected_coin_Id);
+    const days = useSelector((state) => state.chartPriceReducer.day_value);
+
+    
+    const chartPriceFetcher = async(url) => {
+        try {
+            const {data} = await axios.get(url);
+            dispatch(getChartPrice(data));
+            return data;
+        } catch (error) {
+            return error;
+        }
+    }
+
+    const {data, isLoading, status} = useQuery(['chartPrice', currencyType, days] , () => chartPriceFetcher(`https://api.coingecko.com/api/v3/coins/${currentCurrencyId}/market_chart?vs_currency=${currencyType}&days=${days}`),{
+        cacheTime: Infinity
+    })
 
 
-    return {data, status, isLoading}
+    return ({data, isLoading, status})
 }
