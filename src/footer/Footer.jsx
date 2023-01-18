@@ -9,7 +9,7 @@ const Footer = () => {
     <>
         <Flex bg={'rgba(100,100,100,0.10)'} w={'100%'}>
             
-          <HStack w={'100%'}  justifyContent={'center'} flexDirection={'column'}>
+          <HStack w={'100%'} justifyContent={'center'} flexDirection={'column'}>
 
             <HStack p={'.2rem'}>
               <Text>EN-CRYPTO</Text>
@@ -25,7 +25,7 @@ const Footer = () => {
               <AiOutlineInstagram fontSize={'1.8rem'} cursor={'pointer'}/>
               <AiOutlineGithub fontSize={'1.8rem'} cursor={'pointer'}/>
               <AiFillLinkedin fontSize={'1.8rem'} cursor={'pointer'}/>
-              <a href="mailto:gauravgoswami.aug@gmail.com">
+              <a href="#">
                 <AiOutlineMail fontSize={'1.8rem'} cursor={'pointer'}/>
               </a>
             </HStack>
